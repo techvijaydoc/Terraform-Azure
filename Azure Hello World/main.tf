@@ -1,9 +1,21 @@
+
 # Creating azure resource group
-resource "azurerm_resource_group" "tfhelloworld" {
+resource "azurerm_resource_group" "tflearning" {
   name = "tf-rg-1"
   location = "East US"
 }
 
+# creating azure storage account
+resource "azurerm_storage_account" "tfstorageaccount" {
+  name = "tfstorageaccount1980"
+  location = azurerm_resource_group.tflearning.location
+  resource_group_name = azurerm_resource_group.tflearning.name
+  account_tier = "Standard"
+  account_replication_type = "LRS"
+  
+}
+
+/*
 # Creating azure virtual network
 resource "azurerm_virtual_network" "tfhellonet" {
   name = "tf-vnet-1"
@@ -59,3 +71,4 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
   }
   
 }
+*/
