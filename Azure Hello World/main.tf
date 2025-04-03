@@ -15,6 +15,15 @@ resource "azurerm_storage_account" "tfstorageaccount" {
   
 }
 
+# Creating azure storage container
+resource "azurerm_storage_container" "tfstoragecontainer" {
+  name                  = "vhds"
+  storage_account_id    = azurerm_storage_account.tfstorageaccount.id
+  container_access_type = "private"
+}
+
+
+}
 /*
 # Creating azure virtual network
 resource "azurerm_virtual_network" "tfhellonet" {
