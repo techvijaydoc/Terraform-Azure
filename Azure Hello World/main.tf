@@ -51,8 +51,20 @@ resource "azurerm_network_interface" "tfnic1" {
     name = "tf-ipconfig-1"
     subnet_id = azurerm_subnet.tfsubnet1.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.tf-publicip.id
   }
-  depends_on = [ azurerm_virtual_network.tfhellonet ]
+  depends_on = [ 
+    azurerm_virtual_network.tfhellonet, 
+    azurerm_public_ip.tf-publicip 
+  ]
+}
+
+# Creating azure public ip address
+resource "azurerm_public_ip" "tf-publicip" {
+  name                = "tf-publicip-1"
+  resource_group_name = azurerm_resource_group.tflearning.name
+  location            = azurerm_resource_group.tflearning.location
+  allocation_method   = "Static"
 }
 
 # Creating azure virtual machine
