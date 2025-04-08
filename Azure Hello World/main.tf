@@ -109,7 +109,7 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
 # Creating azure virtual machine data disk attachment
 resource "azurerm_virtual_machine_data_disk_attachment" "tf-diskattach" {
   managed_disk_id    = azurerm_managed_disk.tf-manageddisk.id
-  virtual_machine_id = azurerm_virtual_machine.tflinuxvm1.id
+  virtual_machine_id = azurerm_linux_virtual_machine.tflinuxvm1.id
   lun                = "1"
   caching            = "ReadWrite"
   depends_on = [ azurerm_linux_virtual_machine.tflinuxvm1, azurerm_managed_disk.tf-manageddisk ]
