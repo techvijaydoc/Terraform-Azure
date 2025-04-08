@@ -78,6 +78,14 @@ resource "azurerm_managed_disk" "tf-manageddisk" {
  
 }
 
+# Creating azure availability set
+resource "azurerm_availability_set" "tf-avset" {
+  name                = "tf-avset"
+  location            = azurerm_resource_group.tflearning.location
+  resource_group_name = azurerm_resource_group.tflearning.name
+
+}
+
 # Creating azure virtual machine
 resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
   name = "tf-linux-vm-1"
