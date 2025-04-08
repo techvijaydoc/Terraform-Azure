@@ -24,7 +24,7 @@ resource "azurerm_storage_container" "tfstoragecontainer" {
 
 
 
-/*
+
 # Creating azure virtual network
 resource "azurerm_virtual_network" "tfhellonet" {
   name = "tf-vnet-1"
@@ -80,4 +80,4 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
   }
   
 }
-*/
+
