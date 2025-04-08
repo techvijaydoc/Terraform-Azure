@@ -83,7 +83,8 @@ resource "azurerm_availability_set" "tf-avset" {
   name                = "tf-avset"
   location            = azurerm_resource_group.tflearning.location
   resource_group_name = azurerm_resource_group.tflearning.name
-
+  platform_fault_domain_count = 3
+  platform_update_domain_count = 3
 }
 
 # Creating azure virtual machine
@@ -94,6 +95,7 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
   size = "Standard_DS1_v2"
   admin_username = "adminuser"
   admin_password = "TF@azure1234"
+  availability_set_id = azurerm_availability_set.tf-avset.id
   network_interface_ids = [azurerm_network_interface.tfnic1.id]
   computer_name = "tf-linux-vm-1"
   disable_password_authentication = false
@@ -111,7 +113,9 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
     version   = "latest"
   }
   
-  depends_on = [ azurerm_network_interface.tfnic1 ]
+  depends_on = [ azurerm_network_interface.tfnic1,
+    azurerm_availability_set.tf-avset, 
+    azurerm_managed_disk.tf-manageddisk ]
 }
 
 # Creating azure virtual machine data disk attachment
