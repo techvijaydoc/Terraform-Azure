@@ -52,6 +52,7 @@ resource "azurerm_network_interface" "tfnic1" {
     subnet_id = azurerm_subnet.tfsubnet1.id
     private_ip_address_allocation = "Dynamic"
   }
+  depends_on = [ azurerm_virtual_network.tfhellonet ]
 }
 
 # Creating azure virtual machine
@@ -79,5 +80,6 @@ resource "azurerm_linux_virtual_machine" "tflinuxvm1" {
     version   = "latest"
   }
   
+  depends_on = [ azurerm_network_interface.tfnic1 ]
 }
 
